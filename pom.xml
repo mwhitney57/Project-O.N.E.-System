@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>club.minimunch57</groupId>
+	<artifactId>ProjectONE</artifactId>
+	<version>0.8.4</version>
+	<packaging>jar</packaging>
+
+	<name>ProjectONE</name>
+
+	<developers>
+		<developer>
+			<name>Matthew Whitney</name>
+		</developer>
+		<!-- Java Fingerprint Library Dev. (https://github.com/milan-fabian/java-fingerprint-sensor) -->
+		<developer>
+			<name>Milan Fabian</name>
+			<email>mimac2@gmail.com</email>
+		</developer>
+	</developers>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+		<!-- Serial interface lib -->
+		<dependency>
+			<groupId>com.neuronrobotics</groupId>
+			<artifactId>nrjavaserial</artifactId>
+			<version>5.2.1</version>
+		</dependency>
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>2.0.7</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.slf4j</groupId>
+    		<artifactId>slf4j-simple</artifactId>
+    		<version>2.0.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.pi4j/pi4j-core -->
+		<dependency>
+		    <groupId>com.pi4j</groupId>
+		    <artifactId>pi4j-core</artifactId>
+		    <version>2.3.0</version>
+		</dependency>
+		<dependency>
+    		<groupId>com.pi4j</groupId>
+    		<artifactId>pi4j-plugin-raspberrypi</artifactId>
+    		<version>2.3.0</version>
+		</dependency>
+		<dependency>
+       		<groupId>com.pi4j</groupId>
+       		<artifactId>pi4j-plugin-pigpio</artifactId>
+      		<version>2.3.0</version>
+   		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.websocket/javax.websocket-api -->
+		<dependency>
+    		<groupId>com.neovisionaries</groupId>
+    		<artifactId>nv-websocket-client</artifactId>
+    		<version>2.14</version>
+		</dependency>
+	</dependencies>
+
+	<scm>
+		<connection>scm:git:git://github.com/milan-fabian/java-fingerprint-sensor.git</connection>
+		<developerConnection>scm:git:ssh://github.com:milan-fabian/java-fingerprint-sensor.git</developerConnection>
+		<url>http://github.com/milan-fabian/java-fingerprint-sensor/tree/master</url>
+	</scm>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.5.0</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<shadedArtifactAttached>true</shadedArtifactAttached>
+					<shadedClassifierName>shaded</shadedClassifierName>
+					<transformers>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <manifestEntries>
+                            	<Main-Class>dev.mwhitney.gui.LockInterface</Main-Class>
+                        	</manifestEntries>
+                    	</transformer>
+                    	<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                	</transformers>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
